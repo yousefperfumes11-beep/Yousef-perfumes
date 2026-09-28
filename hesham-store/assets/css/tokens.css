@@ -1,0 +1,269 @@
+/* ═══════════════════════════════════════════════════════════
+   يوسف للعطور · رموز التصميم
+   كل الألوان والمسافات والأحجام معرّفة هنا. الصفحات لا تستخدم
+   قيمًا صريحة إطلاقًا، بل هذه الرموز، حتى يعمل الوضع الداكن
+   والتكثيف من مكان واحد.
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── الخطوط ── */
+  --font-ui: "IBM Plex Sans Arabic", "Noto Sans Arabic", "Segoe UI", Tahoma,
+             "Geeza Pro", "Helvetica Neue", system-ui, sans-serif;
+  --font-mono: "IBM Plex Sans Arabic", ui-monospace, "SFMono-Regular", Menlo,
+               Consolas, monospace;
+
+  /* أحجام الخط: قاعدة 14px لواجهة إدارية كثيفة قابلة للمسح */
+  --fs-2xs: .6875rem;   /* 11 */
+  --fs-xs:  .75rem;     /* 12 */
+  --fs-sm:  .8125rem;   /* 13 */
+  --fs-md:  .875rem;    /* 14 — حجم الجسم الافتراضي */
+  --fs-base:.9375rem;   /* 15 */
+  --fs-lg:  1.0625rem;  /* 17 */
+  --fs-xl:  1.25rem;    /* 20 */
+  --fs-2xl: 1.5rem;     /* 24 */
+  --fs-3xl: 1.875rem;   /* 30 */
+  --fs-4xl: 2.25rem;    /* 36 */
+
+  --lh-tight: 1.25;
+  --lh-snug:  1.45;
+  --lh-normal:1.6;
+  --lh-loose: 1.75;
+
+  --tr-xs: -.005em;
+  --tr-sm: -.012em;
+  --tr-md: -.02em;
+
+  /* ── المسافات: سلم 4px ── */
+  --sp-0: 0;
+  --sp-1: .25rem;   /* 4  */
+  --sp-2: .5rem;    /* 8  */
+  --sp-3: .75rem;   /* 12 */
+  --sp-4: 1rem;     /* 16 */
+  --sp-5: 1.25rem;  /* 20 */
+  --sp-6: 1.5rem;   /* 24 */
+  --sp-7: 2rem;     /* 32 */
+  --sp-8: 2.5rem;   /* 40 */
+  --sp-9: 3rem;     /* 48 */
+  --sp-10:4rem;     /* 64 */
+
+  /* ── الانحناءات: الابن ≤ الأب ومتّحد المركز ── */
+  --r-xs: 5px;
+  --r-sm: 7px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-xl: 20px;
+  --r-2xl:28px;
+  --r-full: 999px;
+
+  /* ── الأبعاد ── */
+  --sidebar-w: 268px;
+  --sidebar-w-collapsed: 74px;
+  --topbar-h: 64px;
+  --footbar-h: 38px;
+  --tap: 44px;          /* هدف اللمس الأدنى على الجوال */
+  --tap-sm: 36px;
+  --tap-xs: 28px;
+
+  /* ── الحركة ── */
+  --dur-1: 110ms;
+  --dur-2: 170ms;
+  --dur-3: 240ms;
+  --dur-4: 340ms;
+  --ease-out: cubic-bezier(.2,.7,.3,1);
+  --ease-in-out: cubic-bezier(.45,.05,.35,1);
+  /* لا bounce ولا elastic: يبدو قديمًا */
+
+  /* ── الطبقات ── */
+  --z-sidebar: 40;
+  --z-scrim: 35;
+  --z-topbar: 30;
+  --z-pop: 60;
+  --z-modal: 80;
+  --z-toast: 90;
+
+  /* ── الحدود ── */
+  --bw: 1px;
+  --bw-2: 1.5px;
+}
+
+/* ═══════════ المظهر الفاتح (الافتراضي) ═══════════
+   أسطح ورقية دافئة، لا رمادي محايد بارد ولا أبيض صرف.
+   النص off-black مائل للأخضر، لا #000000.                */
+:root, [data-theme="light"] {
+  color-scheme: light;
+
+  --bg:          #f5f4f0;
+  --bg-tint:     #efece6;
+  --surface:     #fdfcfa;
+  --surface-2:   #f9f8f5;
+  --surface-3:   #f1efe9;
+  --surface-inv: #1c2220;
+
+  --border:        #e2ded4;
+  --border-strong: #cec9bc;
+  --border-soft:   #ece9e1;
+
+  --text:    #1b201d;
+  --text-2:  #4d5551;   /* 7.1:1 على --surface */
+  --text-3:  #6d756f;   /* 4.6:1 على --surface */
+  --text-inv:#f4f6f4;
+  --text-on-primary: #ffffff;
+
+  --primary:        #0d7a55;
+  --primary-hover:  #0a6547;
+  --primary-active: #08553c;
+  --primary-soft:   #e3f0ea;
+  --primary-soft-2: #cfe6db;
+  --primary-text:   #0a5f43;
+
+  --accent:       #b0611a;
+  --accent-soft:  #f8ecdd;
+  --accent-text:  #8a4a12;
+
+  --danger:      #b02a21;
+  --danger-soft: #faeae7;
+  --danger-text: #8f2019;
+
+  --success:      #1c7a4c;
+  --success-soft: #e4f1e9;
+  --success-text: #166039;
+
+  --warning:      #9a6a0c;
+  --warning-soft: #f8eed6;
+  --warning-text: #7a540a;
+
+  --info:      #1a6280;
+  --info-soft: #e2eef3;
+  --info-text: #14506a;
+
+  --neutral-soft: #eceae4;
+  --neutral-text: #5b625d;
+
+  /* ظلال متعددة الطبقات: محيطة + مباشرة، مائلة لنفس الـ hue */
+  --sh-1: 0 1px 2px rgba(27,32,29,.055), 0 1px 1px rgba(27,32,29,.035);
+  --sh-2: 0 1px 2px rgba(27,32,29,.05), 0 3px 10px rgba(27,32,29,.055);
+  --sh-3: 0 2px 5px rgba(27,32,29,.05), 0 10px 26px rgba(27,32,29,.09);
+  --sh-pop: 0 4px 10px rgba(27,32,29,.06), 0 18px 44px rgba(27,32,29,.13);
+  --sh-modal: 0 8px 20px rgba(27,32,29,.09), 0 32px 72px rgba(27,32,29,.19);
+  --sh-inset: inset 0 1px 2px rgba(27,32,29,.05);
+
+  --ring: 0 0 0 2px var(--surface), 0 0 0 4px rgba(13,122,85,.45);
+  --grid-line: rgba(27,32,29,.07);
+
+  --skeleton: linear-gradient(90deg, #eeebe4 25%, #f6f4ef 50%, #eeebe4 75%);
+  --scrim-bg: rgba(20,26,23,.44);
+}
+
+/* ═══════════ المظهر الداكن ═══════════
+   أخضر زمردي مطفأ، لا توهج نيون ولا بنفسجي.              */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg:          #12161a;
+  --bg-tint:     #0e1215;
+  --surface:     #191e23;
+  --surface-2:   #1f252b;
+  --surface-3:   #262d34;
+  --surface-inv: #e9ebe9;
+
+  --border:        #2b3238;
+  --border-strong: #3a424a;
+  --border-soft:   #232a30;
+
+  --text:    #e6e9e7;
+  --text-2:  #b0b7b3;   /* 8.2:1 */
+  --text-3:  #8b938e;   /* 5.0:1 */
+  --text-inv:#14181a;
+  --text-on-primary: #06231a;
+
+  --primary:        #2fa37a;
+  --primary-hover:  #3cb68a;
+  --primary-active: #49c798;
+  --primary-soft:   #14312a;
+  --primary-soft-2: #1b4438;
+  --primary-text:   #7fd4b1;
+
+  --accent:       #d08b3f;
+  --accent-soft:  #33260f;
+  --accent-text:  #e5ab64;
+
+  --danger:      #e0705f;
+  --danger-soft: #38201c;
+  --danger-text: #ef9284;
+
+  --success:      #4bb77f;
+  --success-soft: #16301f;
+  --success-text: #7ed0a2;
+
+  --warning:      #d3a441;
+  --warning-soft: #322a12;
+  --warning-text: #e3bd6c;
+
+  --info:      #5aa9c9;
+  --info-soft: #14282f;
+  --info-text: #85c6de;
+
+  --neutral-soft: #262d33;
+  --neutral-text: #a8afaa;
+
+  --sh-1: 0 1px 2px rgba(0,0,0,.4);
+  --sh-2: 0 1px 2px rgba(0,0,0,.35), 0 3px 10px rgba(0,0,0,.3);
+  --sh-3: 0 2px 6px rgba(0,0,0,.35), 0 12px 28px rgba(0,0,0,.42);
+  --sh-pop: 0 4px 12px rgba(0,0,0,.4), 0 20px 48px rgba(0,0,0,.5);
+  --sh-modal: 0 8px 24px rgba(0,0,0,.45), 0 36px 80px rgba(0,0,0,.6);
+  --sh-inset: inset 0 1px 2px rgba(0,0,0,.35);
+
+  --ring: 0 0 0 2px var(--surface), 0 0 0 4px rgba(47,163,122,.55);
+  --grid-line: rgba(230,233,231,.08);
+
+  --skeleton: linear-gradient(90deg, #22282e 25%, #2a3138 50%, #22282e 75%);
+  --scrim-bg: rgba(6,9,11,.62);
+}
+
+/* ═══════════ الوضع الكثيف: يقلّل الحشو دون تغيير الألوان ═══════════ */
+[data-density="compact"] {
+  --row-h: 40px;
+  --card-pad: var(--sp-4);
+  --fs-md: .8125rem;
+  --fs-sm: .75rem;
+}
+:root {
+  --row-h: 50px;
+  --card-pad: var(--sp-5);
+}
+
+/* ═══════════ لهجات اللون الأساسي (تُبدَّل من الإعدادات) ═══════════
+   كلها ألوان مطفأة، لا نيون ولا بنفسجي.                             */
+[data-accent="petrol"] {
+  --primary: #14687f; --primary-hover: #10576a; --primary-active: #0c4757;
+  --primary-soft: #e2eff3; --primary-soft-2: #cbe3ea; --primary-text: #0f5468;
+  --ring: 0 0 0 2px var(--surface), 0 0 0 4px rgba(20,104,127,.45);
+}
+[data-theme="dark"][data-accent="petrol"] {
+  --primary: #4aa5bd; --primary-hover: #5cb6cd; --primary-active: #6fc6db;
+  --primary-soft: #102a33; --primary-soft-2: #164049; --primary-text: #8fd0e0;
+  --text-on-primary: #06222b;
+  --ring: 0 0 0 2px var(--surface), 0 0 0 4px rgba(74,165,189,.55);
+}
+[data-accent="brick"] {
+  --primary: #9c3f2c; --primary-hover: #85341f; --primary-active: #6f2a19;
+  --primary-soft: #f6e9e4; --primary-soft-2: #ecd6cd; --primary-text: #7f3222;
+  --ring: 0 0 0 2px var(--surface), 0 0 0 4px rgba(156,63,44,.45);
+}
+[data-theme="dark"][data-accent="brick"] {
+  --primary: #cf705a; --primary-hover: #db8069; --primary-active: #e59179;
+  --primary-soft: #33201a; --primary-soft-2: #472b23; --primary-text: #e79c86;
+  --text-on-primary: #2b1009;
+  --ring: 0 0 0 2px var(--surface), 0 0 0 4px rgba(207,112,90,.55);
+}
+[data-accent="olive"] {
+  --primary: #5c6b1f; --primary-hover: #4c5917; --primary-active: #3d4811;
+  --primary-soft: #eef0e0; --primary-soft-2: #dfe3c7; --primary-text: #4b5718;
+  --ring: 0 0 0 2px var(--surface), 0 0 0 4px rgba(92,107,31,.45);
+}
+[data-theme="dark"][data-accent="olive"] {
+  --primary: #9aa845; --primary-hover: #a9b755; --primary-active: #b8c666;
+  --primary-soft: #242813; --primary-soft-2: #333a1b; --primary-text: #c3cf78;
+  --text-on-primary: #1b1f08;
+  --ring: 0 0 0 2px var(--surface), 0 0 0 4px rgba(154,168,69,.55);
+}

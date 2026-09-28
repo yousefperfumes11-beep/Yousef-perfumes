@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f4f0" id="metaThemeColor">
+<meta name="description" content="يوسف للعطور: منظومة إدارة المبيعات والباركود والمخزون والديون والصندوق لمحل عطور، واجهة أمامية بالكامل ببيانات تجريبية.">
+<meta name="color-scheme" content="light dark">
+<title>يوسف للعطور · منظومة المبيعات والمخزون</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230d7a55'/%3E%3Ctext x='16' y='22.5' font-family='Tahoma,sans-serif' font-size='16' font-weight='700' fill='%23fff' text-anchor='middle'%3Eه%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تخطَّ إلى المحتوى الرئيسي</a>
+
+<!-- ══════════════ شاشة تسجيل الدخول ══════════════ -->
+<div class="auth" id="authScreen" hidden>
+  <div class="auth__brand" aria-hidden="true">
+    <div class="auth__mark">ه</div>
+    <div class="auth__brandBody">
+      <p class="auth__name">يوسف للعطور</p>
+      <p class="auth__tag">عطور أصلية · ماركات عالمية وشرقية</p>
+    </div>
+    <div class="auth__points">
+      <div class="auth__point"><span class="auth__pointNum">١٢٤٨</span><span class="auth__pointLbl">صنف في المخزون</span></div>
+      <div class="auth__point"><span class="auth__pointNum">٩٦٪</span><span class="auth__pointLbl">دقة الجرد</span></div>
+      <div class="auth__point"><span class="auth__pointNum">٣ فروع</span><span class="auth__pointLbl">متصلة بالنظام</span></div>
+    </div>
+    <div class="auth__rule" aria-hidden="true"></div>
+  </div>
+
+  <div class="auth__panel">
+    <form class="auth__form" id="loginForm" novalidate>
+      <div class="auth__head">
+        <h1 class="auth__title">تسجيل الدخول</h1>
+        <p class="auth__sub">أدخل بياناتك للوصول إلى لوحة التحكم.</p>
+      </div>
+
+      <div class="field" data-field="loginUser">
+        <label class="field__label" for="loginUser">اسم المستخدم</label>
+        <div class="input-wrap">
+          <span class="input-wrap__icon" data-icon="user"></span>
+          <input class="input" id="loginUser" name="username" type="text" autocomplete="username"
+                 placeholder="youssef" required spellcheck="false" dir="ltr" style="text-align:right">
+        </div>
+        <p class="field__error" id="loginUser-error" hidden><span></span></p>
+      </div>
+
+      <div class="field" data-field="loginPass">
+        <label class="field__label" for="loginPass">كلمة المرور</label>
+        <div class="input-wrap">
+          <span class="input-wrap__icon" data-icon="lock"></span>
+          <input class="input" id="loginPass" name="password" type="password" autocomplete="current-password"
+                 placeholder="••••••••" required dir="ltr" style="text-align:right">
+          <button type="button" class="input-wrap__btn" id="togglePass" data-icon="eye" data-icon-btn aria-label="إظهار كلمة المرور" aria-pressed="false"></button>
+        </div>
+        <p class="field__error" id="loginPass-error" hidden><span></span></p>
+        <p class="field__hint" id="capsHint" hidden>مفتاح Caps Lock مفعّل</p>
+      </div>
+
+      <div class="auth__row">
+        <label class="check">
+          <input type="checkbox" id="rememberMe" checked>
+          <span class="check__box" aria-hidden="true"></span>
+          <span class="check__label">تذكّرني</span>
+        </label>
+        <button type="button" class="link" data-action="forgot">نسيت كلمة المرور؟</button>
+      </div>
+
+      <p class="alert alert--danger" id="loginAlert" role="alert" hidden></p>
+
+      <button type="submit" class="btn btn--primary btn--lg btn--block" id="loginSubmit">
+        <span class="btn__label">دخول</span>
+      </button>
+
+      <div class="auth__divider"><span>أو</span></div>
+
+      <button type="button" class="btn btn--ghost btn--block" data-action="demoLogin">
+        <span data-icon="sparkle" class="btn__icon"></span>
+        <span class="btn__label">دخول تجريبي سريع</span>
+      </button>
+
+      <p class="auth__note">
+        هذه واجهة أمامية فقط. لا يوجد خادم أو قاعدة بيانات أو تحقق حقيقي من الهوية.
+        بيانات الدخول التجريبية: <code dir="ltr">youssef</code> / <code dir="ltr">1234</code>
+      </p>
+    </form>
+  </div>
+</div>
+
+<!-- ══════════════ هيكل التطبيق ══════════════ -->
+<div class="app" id="app" hidden>
+
+  <!-- الغطاء للجوال -->
+  <div class="scrim" id="scrim" hidden></div>
+
+  <!-- ─── الشريط الجانبي ─── -->
+  <aside class="sidebar" id="sidebar" aria-label="التنقل الرئيسي">
+    <div class="sidebar__top">
+      <a class="brand" href="#/" aria-label="يوسف للعطور، الصفحة الرئيسية">
+        <span class="brand__mark" aria-hidden="true">ه</span>
+        <span class="brand__text">
+          <span class="brand__name">يوسف للعطور</span>
+          <span class="brand__sub">الفرع الرئيسي</span>
+        </span>
+      </a>
+      <button class="icon-btn sidebar__close" id="sidebarClose" data-icon="x" data-icon-btn aria-label="إغلاق القائمة"></button>
+    </div>
+
+    <div class="sidebar__search">
+      <div class="input-wrap input-wrap--sm">
+        <span class="input-wrap__icon" data-icon="search"></span>
+        <input class="input input--sm" type="search" id="globalSearch" placeholder="بحث سريع…"
+               autocomplete="off" aria-label="بحث سريع في المنتجات والفواتير">
+        <kbd class="input-wrap__kbd">/</kbd>
+      </div>
+      <div class="search-results" id="searchResults" hidden></div>
+    </div>
+
+    <nav class="nav" id="nav" aria-label="أقسام النظام"></nav>
+
+    <div class="sidebar__foot">
+      <div class="stock-alert" id="stockAlert"></div>
+      <button class="user-chip" id="userChip" data-action="userMenu" aria-haspopup="menu" aria-expanded="false">
+        <span class="avatar avatar--sm" id="userAvatar">ه</span>
+        <span class="user-chip__text">
+          <span class="user-chip__name" id="userName">يوسف</span>
+          <span class="user-chip__role" id="userRole">مدير</span>
+        </span>
+        <span data-icon="chevron-up" class="user-chip__chev"></span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ─── المنطقة الرئيسية ─── -->
+  <div class="main">
+    <header class="topbar" id="topbar">
+      <div class="topbar__start">
+        <button class="icon-btn topbar__menu" id="menuBtn" data-icon="menu" data-icon-btn aria-label="فتح القائمة" aria-expanded="false" aria-controls="sidebar"></button>
+        <button class="icon-btn topbar__collapse" id="collapseBtn" data-icon="panel" data-icon-btn aria-label="طيّ الشريط الجانبي" aria-pressed="false"></button>
+        <div class="topbar__titles">
+          <nav class="crumbs" id="crumbs" aria-label="مسار التنقل"></nav>
+          <h1 class="topbar__title" id="pageTitle">لوحة التحكم</h1>
+          <p class="topbar__sub" id="pageSub"></p>
+        </div>
+      </div>
+
+      <div class="topbar__end">
+        <div class="seg seg--sm" role="group" aria-label="الفترة الزمنية" id="periodSeg"></div>
+
+        <button class="icon-btn" id="themeBtn" data-icon="sun" data-icon-btn aria-label="تبديل المظهر" title="تبديل المظهر (T)"></button>
+
+        <button class="icon-btn icon-btn--dot" id="bellBtn" data-icon="bell" data-icon-btn aria-label="التنبيهات" aria-haspopup="true" aria-expanded="false">
+          <span class="dot" id="bellDot" hidden></span>
+        </button>
+
+        <button class="btn btn--primary" id="quickSale">
+          <span data-icon="plus" class="btn__icon"></span>
+          <span class="btn__label">بيع سريع</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="content" id="main" tabindex="-1"></main>
+
+    <footer class="footbar">
+      <span>يوسف للعطور · الإصدار <span dir="ltr">1.1.0</span></span>
+      <span class="footbar__sep" aria-hidden="true"></span>
+      <span>واجهة أمامية ببيانات تجريبية، بلا خادم أو قاعدة بيانات</span>
+      <span class="footbar__spacer"></span>
+      <span class="footbar__clock" id="clock"></span>
+    </footer>
+  </div>
+</div>
+
+<!-- ══════════════ طبقات عامة ══════════════ -->
+<div class="modal-root" id="modalRoot"></div>
+<div class="toast-root" id="toastRoot" role="region" aria-label="الإشعارات" aria-live="polite"></div>
+<div class="print-root" id="printRoot" aria-hidden="true"></div>
+
+<!-- الترتيب مهم: المكتبة ثم البيانات ثم الصفحات ثم الإقلاع -->
+<script src="assets/js/lib.js"></script>
+<script src="assets/js/icons.js"></script>
+<script src="assets/js/charts.js"></script>
+<script src="assets/js/barcode.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/router.js"></script>
+<script src="assets/js/pages/login.js"></script>
+<script src="assets/js/pages/dashboard.js"></script>
+<script src="assets/js/pages/pos.js"></script>
+<script src="assets/js/pages/sales.js"></script>
+<script src="assets/js/pages/invoice.js"></script>
+<script src="assets/js/pages/products.js"></script>
+<script src="assets/js/pages/inventory.js"></script>
+<script src="assets/js/pages/barcode-page.js"></script>
+<script src="assets/js/pages/purchases.js"></script>
+<script src="assets/js/pages/suppliers.js"></script>
+<script src="assets/js/pages/customers.js"></script>
+<script src="assets/js/pages/cash.js"></script>
+  <script src="assets/js/pages/expenses.js"></script>
+<script src="assets/js/pages/reports.js"></script>
+<script src="assets/js/pages/users.js"></script>
+<script src="assets/js/pages/settings.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
