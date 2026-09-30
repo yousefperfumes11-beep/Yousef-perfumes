@@ -150,7 +150,7 @@
       }
 
       /* حارس الدخول */
-      var loggedIn = HS.store && HS.store.isLoggedIn();
+      var loggedIn = !!(HS.store && HS.store.isLoggedIn() && (!HS.auth || HS.auth.isAuthed()));
       if (!m.route.public && !loggedIn) {
         HS.router.go("/login", { next: parsed.path === "/" ? "" : parsed.path }, { replace: true });
         return;

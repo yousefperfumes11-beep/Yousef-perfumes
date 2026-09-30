@@ -293,6 +293,7 @@
   });
 
   HS.action("forgot", function () {
+    if (!HS.auth.dev) return;
     HS.ui.toast({
       type: "info", icon: "info", title: "هذه واجهة أمامية فقط",
       msg: "لا يوجد خادم لإرسال رابط الاستعادة. بيانات الدخول التجريبية: youssef / 1234",
@@ -331,6 +332,7 @@
       okLabel: "خروج", danger: true, icon: "logout", tone: "warn"
     }).then(function (ok) {
       if (!ok) return;
+      HS.auth.signOut();
       HS.store.logout();
       HS.router.go("/login", null, { replace: true });
       HS.ui.toast({ type: "info", icon: "logout", title: "تم تسجيل الخروج", msg: "إلى اللقاء" });
@@ -454,19 +456,22 @@
     }, 150);
     window.addEventListener("resize", onResize);
 
-    HS.router.start();
+    /* استعادة جلسة Supabase أولًا، ثم تشغيل الموجّه */
+    HS.auth.init(function () {
+      HS.router.start();
 
-    /* ترحيب */
-    if (HS.store.isLoggedIn()) {
-      var u = HS.store.currentUser();
-      if (u && !sessionStorage.getItem("hs-welcomed")) {
-        sessionStorage.setItem("hs-welcomed", "1");
-        HS.ui.toast({
-          type: "success", icon: "sparkle", title: "أهلًا " + u.name.split(" ")[0],
-          msg: "البيانات تجريبية ومحفوظة في متصفحك فقط.", duration: 4200
-        });
+      /* ترحيب */
+      if (HS.store.isLoggedIn()) {
+        var u = HS.store.currentUser();
+        if (u && !sessionStorage.getItem("hs-welcomed")) {
+          sessionStorage.setItem("hs-welcomed", "1");
+          HS.ui.toast({
+            type: "success", icon: "sparkle", title: "أهلًا " + u.name.split(" ")[0],
+            msg: "البيانات تجريبية ومحفوظة في متصفحك فقط.", duration: 4200
+          });
+        }
       }
-    }
+    });
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);

@@ -890,7 +890,11 @@
     deleteCustomer: function (id) { return HS.store._deleteEntity("customers", id); },
     saveSupplier: function (d, id) { return HS.store._saveEntity("suppliers", d, id, "sup", { balance: 0, active: true, rating: 4, termsDays: 0 }); },
     deleteSupplier: function (id) { return HS.store._deleteEntity("suppliers", id); },
-    saveUser: function (d, id) { return HS.store._saveEntity("users", d, id, "u", { active: true, permissions: [], status: "متاح" }); },
+    saveUser: function (d, id) {
+      if (!id && HS.auth && !HS.auth.dev) {
+        return { ok: false, error: "الموقع يعتمد على حساب واحد فقط، ولا يمكن إضافة مستخدم آخر" };
+      }
+      return HS.store._saveEntity("users", d, id, "u", { active: true, permissions: [], status: "متاح" }); },
     deleteUser: function (id) {
       if (id === S.session.userId) return { ok: false, error: "لا يمكنك حذف الحساب الذي تستخدمه الآن" };
       return HS.store._deleteEntity("users", id);
@@ -988,6 +992,24 @@
       if (!u.active) return { ok: false, error: "هذا الحساب موقوف، راجع مدير النظام" };
       /* واجهة فقط: أي كلمة مرور من 4 أحرف فأكثر تُقبل */
       if (!password || String(password).length < 4) return { ok: false, error: "كلمة المرور قصيرة جدًا (4 أحرف على الأقل)" };
+      S.session.userId = u.id;
+      S.session.since = new Date().toISOString();
+      S.session.username = u.username;
+      u.lastLogin = HS.date.toStamp(new Date());
+      HS.store.save();
+      HS.bus.emit("session:start", u);
+      return { ok: true, user: u };
+    },
+    /** يفتح جلسة محلية لحساب Supabase الوحيد (بعد نجاح التحقق الحقيقي) */
+    openSession: function (info) {
+      info = info || {};
+      var u = S.users.filter(function (x) { return x.role === "مدير"; })[0] || S.users[0];
+      if (!u) return { ok: false, error: "لا يوجد مستخدم محلي" };
+      var uname = String(info.email || "").split("@")[0].toLowerCase();
+      if (info.name) u.name = info.name;
+      if (uname) u.username = uname;
+      if (info.email) u.email = info.email;
+      u.active = true;
       S.session.userId = u.id;
       S.session.since = new Date().toISOString();
       S.session.username = u.username;
