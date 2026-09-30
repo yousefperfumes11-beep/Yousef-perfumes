@@ -79,7 +79,7 @@
           HS.ui.toolbar({
             q: q, placeholder: "بحث بالاسم أو اسم الدخول…", searchName: "q",
             filters: HS.ui.select({ name: "role", label: "الدور", value: role, options: [{ value: "", label: "كل الأدوار" }].concat(ROLES.map(function (r) { return { value: r, label: r }; })) }),
-            actions: canManage ? '<button type="button" class="btn btn--sm btn--primary" data-action="usr-new"><span class="btn__icon">' + HS.icon("plus", 15) + '</span><span class="btn__label">مستخدم جديد</span></button>' : ""
+            actions: canManage && HS.auth.dev ? '<button type="button" class="btn btn--sm btn--primary" data-action="usr-new"><span class="btn__icon">' + HS.icon("plus", 15) + '</span><span class="btn__label">مستخدم جديد</span></button>' : ""
           }) +
           '<div class="card__body card__body--flush">' +
           (list.length ? '<div class="list" style="padding:0 var(--sp-4)">' + list.map(function (u) {
@@ -242,7 +242,13 @@
   }
 
   /* ═══════════ الإجراءات ═══════════ */
-  HS.action("usr-new", function () { userForm(null); });
+  HS.action("usr-new", function () {
+    if (!HS.auth.dev) {
+      HS.ui.toast({ type: "warning", icon: "shield", title: "حساب واحد فقط", msg: "الموقع يعتمد على حساب واحد ولا يمكن إضافة مستخدم آخر." });
+      return;
+    }
+    userForm(null);
+  });
   HS.action("usr-edit", function (btn) {
     HS.ui.closePop();
     var u = HS.store.user(btn.getAttribute("data-id"));
