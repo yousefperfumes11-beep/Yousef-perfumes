@@ -40,6 +40,7 @@ const dom = new JSDOM(fs.readFileSync(INDEX, "utf8"), {
   url: "file://" + INDEX,
   resources: "usable", runScripts: "dangerously", pretendToBeVisual: true, virtualConsole: vc,
   beforeParse(window) {
+    window.HS_DEV_NO_AUTH = true; /* الدخول التجريبي المحلي لأدوات الفحص فقط */
     window.matchMedia = window.matchMedia || ((q) => ({ matches: false, media: q, addListener() {}, removeListener() {}, addEventListener() {}, removeEventListener() {}, dispatchEvent() { return false; } }));
     window.print = () => {}; window.scrollTo = () => {};
     window.URL.createObjectURL = () => "blob:mock"; window.URL.revokeObjectURL = () => {};

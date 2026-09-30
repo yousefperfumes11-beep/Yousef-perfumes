@@ -32,6 +32,7 @@ const dom = new JSDOM(fs.readFileSync(path.join(ROOT, "index.html"), "utf8"), {
   url: "file://" + path.join(ROOT, "index.html"),
   resources: "usable", runScripts: "dangerously", pretendToBeVisual: true, virtualConsole: vc,
   beforeParse(w) {
+    w.HS_DEV_NO_AUTH = true; /* الدخول التجريبي المحلي لأدوات الفحص فقط */
     w.matchMedia = (q) => ({ matches: false, media: q, addListener() {}, removeListener() {}, addEventListener() {}, removeEventListener() {}, dispatchEvent() { return false; } });
     w.print = () => {}; w.scrollTo = () => {};
     w.HTMLElement.prototype.scrollIntoView = () => {};

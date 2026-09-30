@@ -50,6 +50,7 @@ const dom = new JSDOM(HTML, {
   pretendToBeVisual: true,
   virtualConsole: vc,
   beforeParse(window) {
+    window.HS_DEV_NO_AUTH = true; /* الدخول التجريبي المحلي لأدوات الفحص فقط */
     window.matchMedia = window.matchMedia || function (q) {
       return { matches: false, media: q, onchange: null, addListener() {}, removeListener() {}, addEventListener() {}, removeEventListener() {}, dispatchEvent() { return false; } };
     };
